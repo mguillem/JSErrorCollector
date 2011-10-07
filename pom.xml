@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>JSErrorCollector</groupId>
+    <artifactId>JSErrorCollector</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <name>JSErrorCollector</name>
+    <organization>
+        <name>Marc Guillemot</name>
+        <url>http://www.datameer.com/</url>
+    </organization>
+    <packaging>jar</packaging>
+    <description>A set of utilities extending WebDriver.</description>
+    <url>http://github.com/Datameer-Inc/webdriver-goodies</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <!-- As explained in
+    https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-7.POMandsettingsconfig
+    but perhaps should we avoid it?
+    -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <inceptionYear>2011</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Marc Guillemot</name>
+            <id>mguillem</id>
+            <email>mguillem@users.sourceforge.net</email>
+            <url>http://mguillem.wordpress.com/</url>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+        </dependency>
+        <!-- WebDriver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+    </dependencies>
+</project>
