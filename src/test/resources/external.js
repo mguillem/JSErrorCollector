@@ -1,0 +1,1 @@
+document.notExisting.foo = 123;

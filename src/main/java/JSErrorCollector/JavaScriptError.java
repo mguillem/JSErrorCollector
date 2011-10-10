@@ -17,13 +17,13 @@ public class JavaScriptError {
 	private final String sourceName;
 	private final int lineNumber;	
 
-	public JavaScriptError(final Map<String, ? extends Object> map) {
+	JavaScriptError(final Map<String, ? extends Object> map) {
 		errorMessage = (String) map.get("errorMessage");
 		sourceName = (String) map.get("sourceName");
 		lineNumber = ((Number) map.get("lineNumber")).intValue();
 	}
 
-	public JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber) {
+	JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber) {
 		this.errorMessage = errorMessage;
 		this.sourceName = sourceName;
 		this.lineNumber = lineNumber;
