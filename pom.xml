@@ -2,17 +2,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>JSErrorCollector</groupId>
+    <groupId>net.jsourcerer.webdriver</groupId>
     <artifactId>JSErrorCollector</artifactId>
     <version>0.1-SNAPSHOT</version>
     <name>JSErrorCollector</name>
     <organization>
         <name>Marc Guillemot</name>
-        <url>http://www.datameer.com/</url>
+        <url>https://github.com/mguillem</url>
     </organization>
     <packaging>jar</packaging>
     <description>A set of utilities extending WebDriver.</description>
-    <url>http://github.com/Datameer-Inc/webdriver-goodies</url>
+    <url>https://github.com/mguillem</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -35,6 +35,24 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+            </plugin>
+			<plugin>                
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
+                            	<mkdir dir="target/classes/net/jsourcerer/webdriver/jserrorcollector/"/>
+                                <zip destfile="target/classes/net/jsourcerer/webdriver/jserrorcollector/JSErrorCollector.xpi"
+                                 	basedir="firefox" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

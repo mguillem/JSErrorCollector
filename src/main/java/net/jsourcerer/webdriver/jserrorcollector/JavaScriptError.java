@@ -1,14 +1,18 @@
 package net.jsourcerer.webdriver.jserrorcollector;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 /**
- * Holds information about a JavaScript error.
+ * Holds information about a JavaScript error that has occurred in the browser.
+ * This can be currently only used with the {@link FirefoxDriver} (see {@link #addExtension(FirefoxProfile)}.
  * @author Marc Guillemot
  * @version $Revision:  $
  */
@@ -81,6 +85,11 @@ public class JavaScriptError {
 		return errorMessage + " [" + sourceName + ":" + lineNumber + "]";
 	}
 
+	/**
+	 * Gets the collected JavaScript errors that have occurred since last call to this method.
+	 * @param driver the driver providing the possibility to retrieved JavaScript errors (see {@link #addExtension(FirefoxProfile)}.
+	 * @return the errors or an empty list if the driver doesn't provide access to the JavaScript errors
+	 */
 	@SuppressWarnings("unchecked")
 	public static List<JavaScriptError> readErrors(final WebDriver driver) {
 		final List<Object> errors = (List<Object>) ((JavascriptExecutor) driver).executeScript("return window.JSErrorCollector_errors.pump()");
@@ -90,5 +99,21 @@ public class JavaScriptError {
 		}
 		
 		return response;
+	}
+
+	/**
+	 * Adds the Firefox extension collecting JS errors to the profile what allows later use of {@link #readErrors(WebDriver)}.
+	 * <p>
+	 * Example:<br>
+	 * <code><pre>
+	 * final FirefoxProfile profile = new FirefoxProfile();
+	 * JavaScriptError.addExtension(profile);
+	 * final WebDriver driver = new FirefoxDriver(profile);
+	 * </pre></code>
+	 * @param ffProfile the Firefox profile to which the extension should be added.
+	 * @throws IOException in case of problem
+	 */
+	public static void addExtension(final FirefoxProfile ffProfile) throws IOException {
+		ffProfile.addExtension(JavaScriptError.class, "JSErrorCollector.xpi");
 	}
 }
