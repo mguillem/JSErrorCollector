@@ -1,4 +1,4 @@
-package JSErrorCollector;
+package net.jsourcerer.webdriver.jserrorcollector;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package JSErrorCollector;
+package net.jsourcerer.webdriver.jserrorcollector;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+
 
 /**
  * 
