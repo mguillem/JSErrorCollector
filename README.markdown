@@ -28,5 +28,5 @@ Pre-built jar file is available in [dist folder] [2].
   [WebDriver]: http://code.google.com/p/webdriver
   [1]: http://code.google.com/p/selenium/issues/detail?id=148
   [2]: https://github.com/mguillem/JSErrorCollector/tree/master/dist
-  [3]: http://mguillem.wordpress.com/2011/10/10/webdriver-capture-js-errors-while-running-tests
+  [3]: http://mguillem.wordpress.com/2011/10/11/webdriver-capture-js-errors-while-running-tests/
 
