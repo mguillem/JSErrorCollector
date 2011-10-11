@@ -24,6 +24,6 @@ Download:
 Pre-built jar file is available in [dist folder] [2]
 
   [WebDriver]: http://code.google.com/p/webdriver
-  [1] http://code.google.com/p/selenium/issues/detail?id=148
-  [2] https://github.com/mguillem/JSErrorCollector/tree/master/dist
+  [1]: http://code.google.com/p/selenium/issues/detail?id=148
+  [2]: https://github.com/mguillem/JSErrorCollector/tree/master/dist
 
