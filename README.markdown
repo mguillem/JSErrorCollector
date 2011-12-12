@@ -26,6 +26,7 @@ Download:
 Pre-built jar file is available in [dist folder] [2].
 
 For non Java users:
+
 The Firefox extension (the .xpi file) can be used from any language having a WebDriver binding.
 Here is an example about [how it can be used it from Cucumber + Capybara] [4].
 
