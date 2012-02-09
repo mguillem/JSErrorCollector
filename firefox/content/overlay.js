@@ -14,7 +14,7 @@ var JSErrorCollector = {
 						lineNumber: scriptError.lineNumber
 						};
 			}
-			this.list.length = 0;
+			this.list = [];
 			return resp;
 		},
 		toString: function() {
