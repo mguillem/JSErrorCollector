@@ -27,7 +27,7 @@ Pre-built jar file is available in [dist folder] [2].
 
 For non Java users:
 
-The Firefox extension (the .xpi file) can be used from any language having a WebDriver binding.
+The Firefox extension (the [.xpi file] [5]) can be used from any language having a WebDriver binding.
 Here is an example about [how it can be used in Ruby from Cucumber + Capybara] [4].
 
   [WebDriver]: http://code.google.com/p/webdriver
@@ -35,4 +35,5 @@ Here is an example about [how it can be used in Ruby from Cucumber + Capybara] [
   [2]: https://github.com/mguillem/JSErrorCollector/tree/master/dist
   [3]: http://mguillem.wordpress.com/2011/10/11/webdriver-capture-js-errors-while-running-tests/
   [4]: https://gist.github.com/1371962
+  [5]: https://github.com/mguillem/JSErrorCollector/tree/master/dist/JSErrorCollector.xpi
 
