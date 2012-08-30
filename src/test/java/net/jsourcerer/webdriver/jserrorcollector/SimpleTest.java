@@ -44,7 +44,7 @@ public class SimpleTest {
 		
 		final List<JavaScriptError> expectedErrors = Arrays.asList(errorSimpleHtml);
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
-		assertEquals(expectedErrors.size(), jsErrors.size());
+		assertEquals(expectedErrors, jsErrors);
 		
 		driver.quit();
 	}
@@ -60,8 +60,7 @@ public class SimpleTest {
 		driver.get(urlWithNestedFrameHtml);
 		
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
-        assertEquals(expectedErrors.size(), jsErrors.size());
-        assertEquals(errorWithNestedFrameHtml.getSourceName(), jsErrors.get(0).getSourceName());
+		assertEquals(expectedErrors.toString(), jsErrors.toString());
 
 		driver.quit();
 	}
@@ -78,8 +77,7 @@ public class SimpleTest {
 		driver.findElement(By.tagName("button")).click();
 
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
-        assertEquals(expectedErrors.size(), jsErrors.size());
-        assertEquals(errorPopupHtml.getSourceName(), jsErrors.get(0).getSourceName());
+		assertEquals(expectedErrors.toString(), jsErrors.toString());
 		
 		driver.quit();
 	}
@@ -95,21 +93,20 @@ public class SimpleTest {
 		driver.get(urlWithExternalJs);
 
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
-        assertEquals(expectedErrors.size(), jsErrors.size());
-        assertEquals(errorExternalJs.getSourceName(), jsErrors.get(0).getSourceName());
+		assertEquals(expectedErrors.toString(), jsErrors.toString());
 		
 		driver.quit();
 	}
 
-    WebDriver buildFFDriver() throws IOException {
+	WebDriver buildFFDriver() throws IOException {
 		FirefoxProfile ffProfile = new FirefoxProfile();
 		ffProfile.addExtension(new File("firefox")); // assuming that the test is started in project's root
 
-        return new FirefoxDriver(ffProfile);
+		return new FirefoxDriver(ffProfile);
 	}
 
 	@SuppressWarnings("ConstantConditions")
-    private String getResource(final String string) {
+	private String getResource(final String string) {
 		String resource = getClass().getClassLoader().getResource(string).toExternalForm();
 		if (resource.startsWith("file:/") && !resource.startsWith("file:///")) {
 			resource = "file://" + resource.substring(5);
