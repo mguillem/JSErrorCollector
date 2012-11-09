@@ -92,7 +92,8 @@ public class JavaScriptError {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<JavaScriptError> readErrors(final WebDriver driver) {
-		final List<Object> errors = (List<Object>) ((JavascriptExecutor) driver).executeScript("return window.JSErrorCollector_errors.pump()");
+		final String script = "return window.JSErrorCollector_errors ? window.JSErrorCollector_errors.pump() : []";
+		final List<Object> errors = (List<Object>) ((JavascriptExecutor) driver).executeScript(script);
 		final List<JavaScriptError> response = new ArrayList<JavaScriptError>();
 		for (final Object rawError : errors) {
 			response.add(new JavaScriptError((Map<String, ? extends Object>) rawError));
