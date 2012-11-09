@@ -30,10 +30,12 @@ For non Java users:
 The Firefox extension (the [.xpi file] [5]) can be used from any language having a WebDriver binding.
 Here is an example about [how it can be used in Ruby from Cucumber + Capybara] [4].
 
+JSErrorCollector is licensed under the terms of the [Apache License 2] [6].
+
   [WebDriver]: http://code.google.com/p/webdriver
   [1]: http://code.google.com/p/selenium/issues/detail?id=148
   [2]: https://github.com/mguillem/JSErrorCollector/tree/master/dist
   [3]: http://mguillem.wordpress.com/2011/10/11/webdriver-capture-js-errors-while-running-tests/
   [4]: https://gist.github.com/1371962
   [5]: https://github.com/mguillem/JSErrorCollector/raw/master/dist/JSErrorCollector.xpi
-
+  [6]: http://www.apache.org/licenses/LICENSE-2.0.txt
