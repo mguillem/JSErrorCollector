@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.jsourcerer.webdriver</groupId>
     <artifactId>JSErrorCollector</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
     <name>JSErrorCollector</name>
     <organization>
         <name>Marc Guillemot</name>
@@ -54,6 +54,16 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                    <useProjectReferences>false</useProjectReferences>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <inceptionYear>2011</inceptionYear>
@@ -82,7 +92,7 @@
         <!-- WebDriver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
+            <artifactId>selenium-firefox-driver</artifactId>
             <version>2.25.0</version>
         </dependency>
     </dependencies>
