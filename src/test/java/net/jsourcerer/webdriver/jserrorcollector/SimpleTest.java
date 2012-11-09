@@ -105,7 +105,6 @@ public class SimpleTest {
 		return new FirefoxDriver(ffProfile);
 	}
 
-	@SuppressWarnings("ConstantConditions")
 	private String getResource(final String string) {
 		String resource = getClass().getClassLoader().getResource(string).toExternalForm();
 		if (resource.startsWith("file:/") && !resource.startsWith("file:///")) {
