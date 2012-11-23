@@ -23,7 +23,8 @@ var JSErrorCollector = {
 				s += i + ": " + this.list[i] + "\n";
 			}
 			return s;
-		}
+		},
+    __exposedProps__: { pump: "r" }
 	},
 	onLoad: function(event) {
 	    // initialization code
