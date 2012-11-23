@@ -24,7 +24,7 @@ var JSErrorCollector = {
 			}
 			return s;
 		},
-    __exposedProps__: { pump: "r" }
+		__exposedProps__: { pump: "r" }
 	},
 	onLoad: function(event) {
 	    // initialization code
