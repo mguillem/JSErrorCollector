@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSErrorCollector", "JSErrorCollector\JSErrorCollector.csproj", "{9E68A482-C443-40D6-BE3D-1E8B8CEEE134}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSErrorCollector.Tests", "JSErrorCollector.Tests\JSErrorCollector.Tests.csproj", "{789D9B46-82E7-4C88-818F-2924E7366F97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E68A482-C443-40D6-BE3D-1E8B8CEEE134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E68A482-C443-40D6-BE3D-1E8B8CEEE134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E68A482-C443-40D6-BE3D-1E8B8CEEE134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E68A482-C443-40D6-BE3D-1E8B8CEEE134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{789D9B46-82E7-4C88-818F-2924E7366F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789D9B46-82E7-4C88-818F-2924E7366F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789D9B46-82E7-4C88-818F-2924E7366F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789D9B46-82E7-4C88-818F-2924E7366F97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
