@@ -9,9 +9,10 @@ var JSErrorCollector = {
 			for (var i=0; i<this.list.length; ++i) {
 				var scriptError = this.list[i];
 				resp[i] = {
-						errorMessage: scriptError.errorMessage,
-						sourceName: scriptError.sourceName,
-						lineNumber: scriptError.lineNumber
+						errorMessage: scriptError.error.errorMessage,
+						sourceName: scriptError.error.sourceName,
+						lineNumber: scriptError.error.lineNumber,
+						console: scriptError.console
 						};
 			}
 			this.list = [];
@@ -84,7 +85,20 @@ var JSErrorCollector_ErrorConsoleListener =
                 // We're just looking for content JS errors (see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIScriptError#Categories)
                 if (errorCategory == "content javascript")
                 {
-                	JSErrorCollector.addError(error);
+            		var err = {
+            			error: error
+            		};
+                	JSErrorCollector.addError(err);
+			try {
+				if (Firebug && Firebug.currentContext) {
+					setTimeout(function() {
+					
+					var doc = Firebug.currentContext.getPanel("console").document;
+					var s = new XMLSerializer();
+					err.console = s.serializeToString(doc);
+					}, 100);
+				}
+			} catch (e) {}
                 }
             }
             catch (exception)

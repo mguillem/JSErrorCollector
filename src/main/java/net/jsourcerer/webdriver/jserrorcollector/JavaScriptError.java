@@ -20,17 +20,20 @@ public class JavaScriptError {
 	private final String errorMessage;
 	private final String sourceName;
 	private final int lineNumber;	
+	private final String console;
 
 	JavaScriptError(final Map<String, ? extends Object> map) {
 		errorMessage = (String) map.get("errorMessage");
 		sourceName = (String) map.get("sourceName");
 		lineNumber = ((Number) map.get("lineNumber")).intValue();
+		console = (String) map.get("console");
 	}
 
-	JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber) {
+	JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber, String console) {
 		this.errorMessage = errorMessage;
 		this.sourceName = sourceName;
 		this.lineNumber = lineNumber;
+		this.console = console;
 	}
 
 	public String getErrorMessage() {
@@ -43,6 +46,10 @@ public class JavaScriptError {
 	
 	public String getSourceName() {
 		return sourceName;
+	}
+	
+	public String getConsole() {
+		return console;
 	}
 	
 	@Override
@@ -116,5 +123,11 @@ public class JavaScriptError {
 	 */
 	public static void addExtension(final FirefoxProfile ffProfile) throws IOException {
 		ffProfile.addExtension(JavaScriptError.class, "JSErrorCollector.xpi");
+		ffProfile.setPreference("extensions.firebug.showStackTrace", "true");
+		ffProfile.setPreference("extensions.firebug.delayLoad", "false");
+		ffProfile.setPreference("extensions.firebug.showFirstRunPage", "false");
+		ffProfile.setPreference("extensions.firebug.allPagesActivation", "on");
+		ffProfile.setPreference("extensions.firebug.console.enableSites", "true");
+		ffProfile.setPreference("extensions.firebug.defaultPanelName", "console");
 	}
 }
