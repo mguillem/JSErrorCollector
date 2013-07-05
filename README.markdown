@@ -10,7 +10,7 @@ Features:
 
  - provide access to JavaScript errors while running tests with a FirefoxDriver (in Java)
 
-Usage:
+Usage in Java:
 
 		FirefoxProfile ffProfile = new FirefoxProfile();
 		JavaScriptError.addExtension(ffProfile);
@@ -30,6 +30,10 @@ For non Java users:
 The Firefox extension (the [.xpi file] [5]) can be used from any language having a WebDriver binding.
 Here is an example about [how it can be used in Ruby from Cucumber + Capybara] [4].
 
+A .NET port is available: [JSErrorCollector.NET by protectedtrust] [7].
+
+
+
 JSErrorCollector is licensed under the terms of the [Apache License 2] [6].
 
   [WebDriver]: http://code.google.com/p/webdriver
@@ -39,3 +43,4 @@ JSErrorCollector is licensed under the terms of the [Apache License 2] [6].
   [4]: https://gist.github.com/1371962
   [5]: https://github.com/mguillem/JSErrorCollector/raw/master/dist/JSErrorCollector.xpi
   [6]: http://www.apache.org/licenses/LICENSE-2.0.txt
+  [7]: https://github.com/protectedtrust/JSErrorCollector.NET
