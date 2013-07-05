@@ -9,9 +9,9 @@ var JSErrorCollector = {
 			for (var i=0; i<this.list.length; ++i) {
 				var scriptError = this.list[i];
 				resp[i] = {
-						errorMessage: scriptError.error.errorMessage,
-						sourceName: scriptError.error.sourceName,
-						lineNumber: scriptError.error.lineNumber,
+						errorMessage: scriptError.errorMessage,
+						sourceName: scriptError.sourceName,
+						lineNumber: scriptError.lineNumber,
 						console: scriptError.console
 						};
 			}
@@ -49,7 +49,7 @@ var JSErrorCollector = {
 				win.wrappedJSObject.JSErrorCollector_errors = JSErrorCollector.collectedErrors;
 		    }
 		};
-			 
+
 		windowContent.addEventListener("load", onPageLoad, true);
 	},
 
@@ -63,7 +63,6 @@ var JSErrorCollector = {
 	}
 };
 
-
 //Error console listener
 var JSErrorCollector_ErrorConsoleListener =
 {
@@ -74,10 +73,10 @@ var JSErrorCollector_ErrorConsoleListener =
             // Try to convert the error to a script error
             try
             {
-                var error = consoleMessage.QueryInterface(Components.interfaces.nsIScriptError);
+                var scriptError = consoleMessage.QueryInterface(Components.interfaces.nsIScriptError);
 
-                var errorCategory = error.category;
-                var sourceName    = error.sourceName;
+                var errorCategory = scriptError.category;
+                var sourceName    = scriptError.sourceName;
                 if (sourceName.indexOf("about:") == 0 || sourceName.indexOf("chrome:") == 0) {
                 	return; // not interested in internal errors
                 }
@@ -85,20 +84,34 @@ var JSErrorCollector_ErrorConsoleListener =
                 // We're just looking for content JS errors (see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIScriptError#Categories)
                 if (errorCategory == "content javascript")
                 {
-            		var err = {
-            			error: error
+                	var console = null;
+                	// try to get content from Firebug's console if it exists
+                	try {
+                    	if (window.Firebug && window.Firebug.currentContext) {
+                        	var doc = Firebug.currentContext.getPanel("console").document;
+                        	var logNodes = doc.querySelectorAll(".logRow > span");
+                        	var consoleLines = [];
+                        	for (var i=0; i<logNodes.length; ++i) {
+                        		var logNode = logNodes[i];
+                        		if (!logNode.JSErrorCollector_extracted) {
+                            		consoleLines.push(logNodes[i].textContent);
+                            		logNode.JSErrorCollector_extracted = true;
+                        		}
+                        	}
+                        	
+                        	console = consoleLines.join("\n");
+                        }
+                    } catch (e) {
+                    	console = "Error extracting content of Firebug console: " + e.message;
+                    }
+
+                    var err = {
+						errorMessage: scriptError.errorMessage,
+						sourceName: scriptError.sourceName,
+						lineNumber: scriptError.lineNumber,
+            			console: console
             		};
                 	JSErrorCollector.addError(err);
-			try {
-				if (Firebug && Firebug.currentContext) {
-					setTimeout(function() {
-					
-					var doc = Firebug.currentContext.getPanel("console").document;
-					var s = new XMLSerializer();
-					err.console = s.serializeToString(doc);
-					}, 100);
-				}
-			} catch (e) {}
                 }
             }
             catch (exception)
@@ -112,3 +125,4 @@ var JSErrorCollector_ErrorConsoleListener =
 };
 
 window.addEventListener("load", function(e) { JSErrorCollector.onLoad(e); }, false); 
+

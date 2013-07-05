@@ -48,14 +48,23 @@ public class JavaScriptError {
 		return sourceName;
 	}
 	
+	/**
+	 * If Firebug is installed and active, this will contain the content of the Firebug Console since
+	 * the previous JavaScript error. 
+	 * @return
+	 */
 	public String getConsole() {
 		return console;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((console == null) ? 0 : console.hashCode());
 		result = prime * result
 				+ ((errorMessage == null) ? 0 : errorMessage.hashCode());
 		result = prime * result + lineNumber;
@@ -64,32 +73,55 @@ public class JavaScriptError {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null || getClass() != obj.getClass())
+		}
+		if (obj == null) {
 			return false;
-
-		final JavaScriptError other = (JavaScriptError) obj;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		JavaScriptError other = (JavaScriptError) obj;
+		if (console == null) {
+			if (other.console != null) {
+				return false;
+			}
+		} else if (!console.equals(other.console)) {
+			return false;
+		}
 		if (errorMessage == null) {
-			if (other.errorMessage != null)
+			if (other.errorMessage != null) {
 				return false;
-		} else if (!errorMessage.equals(other.errorMessage))
+			}
+		} else if (!errorMessage.equals(other.errorMessage)) {
 			return false;
-		if (lineNumber != other.lineNumber)
+		}
+		if (lineNumber != other.lineNumber) {
 			return false;
+		}
 		if (sourceName == null) {
-			if (other.sourceName != null)
+			if (other.sourceName != null) {
 				return false;
-		} else if (!sourceName.equals(other.sourceName))
+			}
+		} else if (!sourceName.equals(other.sourceName)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return errorMessage + " [" + sourceName + ":" + lineNumber + "]";
+		String s = errorMessage + " [" + sourceName + ":" + lineNumber + "]";
+		if (console != null) {
+			s += "\nConsole: " + console;
+		}
+		return s;
 	}
 
 	/**
@@ -123,11 +155,5 @@ public class JavaScriptError {
 	 */
 	public static void addExtension(final FirefoxProfile ffProfile) throws IOException {
 		ffProfile.addExtension(JavaScriptError.class, "JSErrorCollector.xpi");
-		ffProfile.setPreference("extensions.firebug.showStackTrace", "true");
-		ffProfile.setPreference("extensions.firebug.delayLoad", "false");
-		ffProfile.setPreference("extensions.firebug.showFirstRunPage", "false");
-		ffProfile.setPreference("extensions.firebug.allPagesActivation", "on");
-		ffProfile.setPreference("extensions.firebug.console.enableSites", "true");
-		ffProfile.setPreference("extensions.firebug.defaultPanelName", "console");
 	}
 }
