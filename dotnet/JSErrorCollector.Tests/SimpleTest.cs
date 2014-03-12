@@ -12,6 +12,8 @@ namespace JSErrorCollector.Tests
     {
         public TestContext TestContext { get; set; }
 
+        private string urlUnbrokenHtml;
+
         private string urlSimpleHtml;
         private JavaScriptError errorSimpleHtml;
 
@@ -29,6 +31,8 @@ namespace JSErrorCollector.Tests
         [TestInitialize]
         public void Initialize()
         {
+            urlUnbrokenHtml = GetResource("unbroken.html");
+
             urlSimpleHtml = GetResource("simple.html");
             errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", urlSimpleHtml, 9);
 
@@ -42,6 +46,18 @@ namespace JSErrorCollector.Tests
             urlWithExternalJs = GetResource("withExternalJs.html");
             urlExternalJs = GetResource("external.js");
             errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1);
+        }
+
+        [TestMethod]
+        public void ShouldNotDetectErrorsInWorkingPage()
+        {
+            using (IWebDriver driver = BuildFFDriver(xpiDirectory()))
+            {
+                driver.Navigate().GoToUrl(urlUnbrokenHtml);
+
+                IList<JavaScriptError> jsErrors = JavaScriptError.ReadErrors(driver);
+                Assert.AreEqual(0, jsErrors.Count);
+            }
         }
 
         [TestMethod]

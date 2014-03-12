@@ -79,7 +79,7 @@ namespace JSErrorCollector
         /// </summary>
         /// <param name="driver">the driver providing the possibility to retrieved JavaScript errors (see AddExtension(FirefoxProfile)).</param>
         /// <returns>the errors or an empty list if the driver doesn't provide access to the JavaScript errors</returns>
-        public static IEnumerable<JavaScriptError> ReadErrors(IWebDriver driver)
+        public static IList<JavaScriptError> ReadErrors(IWebDriver driver)
         {
             const string script = "return window.JSErrorCollector_errors ? window.JSErrorCollector_errors.pump() : []";
             ReadOnlyCollection<object> errors = (ReadOnlyCollection<object>)((IJavaScriptExecutor)driver).ExecuteScript(script);
