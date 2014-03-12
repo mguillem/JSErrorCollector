@@ -51,10 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\dist\JSErrorCollector.xpi">
+    <EmbeddedResource Include="..\..\dist\JSErrorCollector.xpi">
       <Link>JSErrorCollector.xpi</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <None Include="JSErrorCollector.nuspec">
       <SubType>Designer</SubType>
     </None>

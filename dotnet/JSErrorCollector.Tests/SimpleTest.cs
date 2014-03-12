@@ -47,7 +47,23 @@ namespace JSErrorCollector.Tests
         [TestMethod]
         public void ShouldDetectErrorsOnPage()
         {
-            using (IWebDriver driver = BuildFFDriver(xpiDirectory()))
+            using (IWebDriver driver = BuildFFDriver())
+            {
+                driver.Navigate().GoToUrl(urlSimpleHtml);
+
+                IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorSimpleHtml };
+                IEnumerable<JavaScriptError> jsErrors = JavaScriptError.ReadErrors(driver);
+                AssertErrorsEqual(expectedErrors, jsErrors);
+            }
+        }
+
+        [TestMethod]
+        public void ShouldAllowExplicitlySpecifyingXpiPath()
+        {
+            FirefoxProfile ffProfile = new FirefoxProfile();
+            JavaScriptError.AddExtension(ffProfile, xpiDirectory());
+
+            using (IWebDriver driver = new FirefoxDriver(ffProfile))
             {
                 driver.Navigate().GoToUrl(urlSimpleHtml);
 
@@ -62,7 +78,7 @@ namespace JSErrorCollector.Tests
         {
             IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorWithNestedFrameHtml, errorSimpleHtml };
 
-            using (IWebDriver driver = BuildFFDriver(xpiDirectory()))
+            using (IWebDriver driver = BuildFFDriver())
             {
                 driver.Navigate().GoToUrl(urlWithNestedFrameHtml);
 
@@ -76,7 +92,7 @@ namespace JSErrorCollector.Tests
         {
             IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorPopupHtml };
 
-            using (IWebDriver driver = BuildFFDriver(xpiDirectory()))
+            using (IWebDriver driver = BuildFFDriver())
             {
                 driver.Navigate().GoToUrl(urlWithPopupHtml);
                 driver.FindElement(By.TagName("button")).Click();
@@ -91,7 +107,7 @@ namespace JSErrorCollector.Tests
         {
             IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorExternalJs };
 
-            using (IWebDriver driver = BuildFFDriver(xpiDirectory()))
+            using (IWebDriver driver = BuildFFDriver())
             {
                 driver.Navigate().GoToUrl(urlWithExternalJs);
 
@@ -131,10 +147,10 @@ namespace JSErrorCollector.Tests
             }
         }
 
-        private IWebDriver BuildFFDriver(string xpiPath)
+        private IWebDriver BuildFFDriver()
         {
             FirefoxProfile ffProfile = new FirefoxProfile();
-            JavaScriptError.AddExtension(ffProfile, xpiPath);
+            JavaScriptError.AddExtension(ffProfile);
             return new FirefoxDriver(ffProfile);
         }
 

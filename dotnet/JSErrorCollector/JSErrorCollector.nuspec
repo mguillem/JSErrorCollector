@@ -14,7 +14,4 @@
       <dependency id="Selenium.WebDriver" version="2.40.0" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="bin/$configuration$/JSErrorCollector.xpi" target="./JSErrorCollector.xpi" />
-  </files>
 </package>
