@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>joelsand</authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
+    <projectUrl>https://github.com/protectedtrust</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This project allows to you capture JavaScript errors while running tests with WebDriver.</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>WebDriver,Selenium,JS,error</tags>
+    <dependencies>
+      <dependency id="Selenium.WebDriver" version="2.40.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/$configuration$/JSErrorCollector.xpi" target="./JSErrorCollector.xpi" />
+  </files>
+</package>

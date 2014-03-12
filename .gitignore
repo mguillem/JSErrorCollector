@@ -5,3 +5,4 @@
 /dotnet/TestResults
 /dotnet/packages/*
 !/dotnet/packages/repositories.config
+*.nupkg
