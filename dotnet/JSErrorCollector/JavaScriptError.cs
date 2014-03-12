@@ -17,7 +17,7 @@ namespace JSErrorCollector
         private readonly string sourceName;
         private readonly int lineNumber;
 
-        public JavaScriptError(Dictionary<string, object> map)
+        private JavaScriptError(Dictionary<string, object> map)
         {
             this.errorMessage = map["errorMessage"].ToString();
             this.sourceName = map["sourceName"].ToString();
@@ -83,12 +83,9 @@ namespace JSErrorCollector
         {
             const string script = "return window.JSErrorCollector_errors ? window.JSErrorCollector_errors.pump() : []";
             ReadOnlyCollection<object> errors = (ReadOnlyCollection<object>)((IJavaScriptExecutor)driver).ExecuteScript(script);
-            List<JavaScriptError> response = new List<JavaScriptError>();
-            foreach (object rawError in errors)
-            {
-                response.Add(new JavaScriptError((Dictionary<string, object>)rawError));
-            }
-            return response;
+            return errors.Select(rawErrorObject => (Dictionary<string, object>) rawErrorObject)
+                         .Select(rawError => new JavaScriptError(rawError))
+                         .ToList();
         }
 
         private const string xpiFilename = "JSErrorCollector.xpi";
