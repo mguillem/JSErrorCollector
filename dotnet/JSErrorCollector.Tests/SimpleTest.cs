@@ -44,11 +44,8 @@ namespace JSErrorCollector.Tests
             errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1);
         }
 
-        /**
-	 *
-	 */
         [TestMethod]
-        public void Simple()
+        public void ShouldDetectErrorsOnPage()
         {
             using (IWebDriver driver = BuildFFDriver())
             {
@@ -60,11 +57,24 @@ namespace JSErrorCollector.Tests
             }
         }
 
-        /**
-         *
-         */
         [TestMethod]
-        public void ErrorInNestedFrame()
+        public void ShouldAllowExplicitlySpecifyingXpiPath()
+        {
+            FirefoxProfile ffProfile = new FirefoxProfile();
+            JavaScriptError.AddExtension(ffProfile, xpiDirectory());
+
+            using (IWebDriver driver = new FirefoxDriver(ffProfile))
+            {
+                driver.Navigate().GoToUrl(urlSimpleHtml);
+
+                IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorSimpleHtml };
+                IEnumerable<JavaScriptError> jsErrors = JavaScriptError.ReadErrors(driver);
+                AssertErrorsEqual(expectedErrors, jsErrors);
+            }
+        }
+
+        [TestMethod]
+        public void ShouldDetectErrorsInNestedFrame()
         {
             IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorWithNestedFrameHtml, errorSimpleHtml };
 
@@ -77,11 +87,8 @@ namespace JSErrorCollector.Tests
             }
         }
 
-        /**
-         *
-         */
         [TestMethod]
-        public void ErrorInPopup()
+        public void ShouldDetectErrorsInPopup()
         {
             IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorPopupHtml };
 
@@ -95,11 +102,8 @@ namespace JSErrorCollector.Tests
             }
         }
 
-        /**
-         *
-         */
         [TestMethod]
-        public void ErrorInExternalJS()
+        public void ShouldDetectErrorsInExternalJS()
         {
             IEnumerable<JavaScriptError> expectedErrors = new List<JavaScriptError>() { errorExternalJs };
 
@@ -129,29 +133,24 @@ namespace JSErrorCollector.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        private string xpiDirectory() {
+            string xpiPath = "dist/JSErrorCollector.xpi";
+
+            for (int depth = 0; depth <= 10 && !File.Exists(xpiPath); depth++) {
+                xpiPath = Path.Combine("../", xpiPath);
+            }
+
+            if (File.Exists(xpiPath)) {
+                return Path.GetDirectoryName(xpiPath);
+            } else {
+                throw new FileNotFoundException("Could not find JSErrorCollector.xpi after 10 iterations.");
+            }
+        }
 
         private IWebDriver BuildFFDriver()
         {
             FirefoxProfile ffProfile = new FirefoxProfile();
-            
-            string xpiPath;
-            int depth = 0;
-            do
-            {
-                string relative = "";
-                for (int i = 0; i < depth; i++)
-                    relative += @"..\";
-
-                xpiPath = Path.Combine(TestContext.DeploymentDirectory, relative, @"dist\JSErrorCollector.xpi");
-
-                depth++;
-                if (depth > 10)
-                    throw new FileNotFoundException("Could not find JSErrorCollector.xpi after 10 iterations.");
-
-            } while (!File.Exists(xpiPath));
-
-            ffProfile.AddExtension(xpiPath);
-
+            JavaScriptError.AddExtension(ffProfile);
             return new FirefoxDriver(ffProfile);
         }
 

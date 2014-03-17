@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System.Diagnostics;
+using System.Reflection;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
@@ -89,21 +91,56 @@ namespace JSErrorCollector
             return response;
         }
 
+        private const string xpiFilename = "JSErrorCollector.xpi";
+        private const string xpiResourceName = "JSErrorCollector.JSErrorCollector.xpi";
+        private static readonly string extractedXpiPath;
+
         /// <summary>
-        /// Adds the Firefox extension collecting JS errors to the profile what allows later use of ReadErrors(WebDriver).
-        ///  
-        ///  Example:
-        ///  
-        ///     FirefoxProfile profile = new FirefoxProfile();
-        ///     JavaScriptError.AddExtension(profile);
-        ///     IWebDriver driver = new FirefoxDriver(profile);
-        ///  
+        /// Adds the Firefox extension collecting JS errors to the profile, which allows later use of
+        /// ReadErrors(WebDriver), explicitly specifying the directory in which to find the XPI.
         /// </summary>
-        /// <param name="ffProfile"></param>
-        /// <param name="xpiDirectory"></param>
+        /// <example><code>
+        /// FirefoxProfile profile = new FirefoxProfile();
+        /// JavaScriptError.AddExtension(profile, "./xpiDirectory");
+        /// IWebDriver driver = new FirefoxDriver(profile);
+        /// </code></example>
+        [Obsolete("The JSErrorCollector DLL now includes the XPI, so a directory to load from is no longer required")]
         public static void AddExtension(FirefoxProfile ffProfile, string xpiDirectory)
         {
-            ffProfile.AddExtension(Path.Combine(xpiDirectory, "JSErrorCollector.xpi"));
+            ffProfile.AddExtension(Path.Combine(xpiDirectory, xpiFilename));
+        }
+
+        /// <summary>
+        /// Adds the Firefox extension collecting JS errors to the profile, which allows later use of
+        /// ReadErrors(WebDriver).
+        /// </summary>
+        /// <example><code>
+        /// FirefoxProfile profile = new FirefoxProfile();
+        /// JavaScriptError.AddExtension(profile);
+        /// IWebDriver driver = new FirefoxDriver(profile);
+        /// </code></example>
+        public static void AddExtension(FirefoxProfile ffProfile)
+        {
+            ffProfile.AddExtension(extractedXpiPath);
+        }
+
+        static JavaScriptError() {
+            extractedXpiPath = ExtractXpiToTempFile();
+        }
+
+        private static string ExtractXpiToTempFile()
+        {
+            var xpiPath = Path.Combine(Path.GetTempPath(), xpiFilename);
+
+            using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(xpiResourceName))
+            {
+                using (var file = new FileStream(xpiPath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                {
+                    resource.CopyTo(file);
+                }
+            }
+
+            return xpiPath;
         }
     }
 }
