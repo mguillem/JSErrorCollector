@@ -1,0 +1,8 @@
+* text=auto
+
+.js text
+.java text
+.sh text
+
+.xpi binary
+.jar binary
