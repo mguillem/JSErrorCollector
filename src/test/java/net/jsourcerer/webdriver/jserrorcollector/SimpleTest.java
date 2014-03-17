@@ -36,8 +36,8 @@ public class SimpleTest {
 
 	private final String urlThrowing = getResource("throwing.html");
 	private final JavaScriptError errorThrowingErrorObject = new JavaScriptError("Error: an explicit error object!", urlThrowing, 9, null);
-	private final JavaScriptError errorThrowingPlainObject = new JavaScriptError("uncaught exception: a plain JS object!", urlThrowing, 10, null);
-	private final JavaScriptError errorThrowingString = new JavaScriptError("uncaught exception: a string error!", urlThrowing, 11, null);
+	private final JavaScriptError errorThrowingPlainObject = new JavaScriptError("uncaught exception: a plain JS object!", null, 0, null);
+	private final JavaScriptError errorThrowingString = new JavaScriptError("uncaught exception: a string error!", null, 0, null);
 
 	/**
 	 *
