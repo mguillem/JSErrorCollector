@@ -34,6 +34,11 @@ public class SimpleTest {
 	private final String urlExternalJs = getResource("external.js");
 	private final JavaScriptError errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1, null);
 
+	private final String urlThrowing = getResource("throwing.html");
+	private final JavaScriptError errorThrowingErrorObject = new JavaScriptError("Error: an explicit error object!", urlThrowing, 9, null);
+	private final JavaScriptError errorThrowingPlainObject = new JavaScriptError("uncaught exception: a plain JS object!", urlThrowing, 10, null);
+	private final JavaScriptError errorThrowingString = new JavaScriptError("uncaught exception: a string error!", urlThrowing, 11, null);
+
 	/**
 	 *
 	 */
@@ -97,6 +102,23 @@ public class SimpleTest {
 		
 		driver.quit();
 	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void errorTypes() throws Exception {
+		final List<JavaScriptError> expectedErrors = Arrays.asList(errorThrowingErrorObject, errorThrowingPlainObject, errorThrowingString);
+
+		final WebDriver driver = buildFFDriver();
+		driver.get(urlThrowing);
+
+		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
+		assertEquals(expectedErrors.toString(), jsErrors.toString());
+
+		driver.quit();
+	}
+
 
 	WebDriver buildFFDriver() throws IOException {
 		FirefoxProfile ffProfile = new FirefoxProfile();

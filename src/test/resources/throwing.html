@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>JS error thrower</title>
+</head>
+
+<body>
+
+<script>
+    throw new Error('an explicit error object!');
+</script>
+<script>
+    throw { toString: function() { return 'a plain JS object!'; } };
+</script>
+<script>
+    throw 'a string error!';
+</script>
+
+</body>
+</html>
