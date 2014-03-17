@@ -77,8 +77,10 @@ var JSErrorCollector_ErrorConsoleListener =
 
                 var errorCategory = scriptError.category;
                 var sourceName    = scriptError.sourceName;
-                if (sourceName.indexOf("about:") == 0 || sourceName.indexOf("chrome:") == 0) {
-                    return; // not interested in internal errors
+                if (sourceName) {
+                    if (sourceName.indexOf("about:") == 0 || sourceName.indexOf("chrome:") == 0) {
+                        return; // not interested in internal errors
+                    }
                 }
 
                 // We're just looking for content JS errors (see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIScriptError#Categories)
