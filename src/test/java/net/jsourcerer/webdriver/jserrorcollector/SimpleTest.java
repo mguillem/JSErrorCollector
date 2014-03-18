@@ -35,9 +35,9 @@ public class SimpleTest {
 	private final JavaScriptError errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1, null);
 
 	private final String urlThrowing = getResource("throwing.html");
-	private final JavaScriptError errorThrowingErrorObject = new JavaScriptError("Error: an explicit error object!", urlThrowing, 9, null);
-	private final JavaScriptError errorThrowingPlainObject = new JavaScriptError("uncaught exception: a plain JS object!", null, 0, null);
-	private final JavaScriptError errorThrowingString = new JavaScriptError("uncaught exception: a string error!", null, 0, null);
+	private final JavaScriptError errorThrowingErrorObject = new JavaScriptError("an explicit error object!", urlThrowing, 9, null);
+	private final JavaScriptError errorThrowingPlainObject = new JavaScriptError("uncaught exception: a plain JS object!", "", 0, null);
+	private final JavaScriptError errorThrowingString = new JavaScriptError("uncaught exception: a string error!", "", 0, null);
 
 	/**
 	 *
