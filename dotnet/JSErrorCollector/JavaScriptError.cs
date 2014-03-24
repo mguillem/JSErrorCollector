@@ -132,15 +132,30 @@ namespace JSErrorCollector
         {
             var xpiPath = Path.Combine(Path.GetTempPath(), xpiFilename);
 
-            using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(xpiResourceName))
-            {
-                using (var file = new FileStream(xpiPath, FileMode.Create, FileAccess.Write, FileShare.Read))
-                {
-                    resource.CopyTo(file);
-                }
+            byte[] xpiData;
+            using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(xpiResourceName)) {
+                xpiData = BytesFromResource(resource);
+            }
+
+            // Only write out the XPI if it's not already present (or it's present but different)
+            if (!File.Exists(xpiPath) || !File.ReadAllBytes(xpiPath).SequenceEqual(xpiData)) {
+                WriteDataToFile(xpiData, xpiPath);
             }
 
             return xpiPath;
+        }
+
+        private static void WriteDataToFile(byte[] data, string path) {
+            using (var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                file.Write(data, 0, data.Count());
+            }
+        }
+
+        private static byte[] BytesFromResource(Stream resource) {
+            byte[] data = new byte[resource.Length];
+            resource.Read(data, 0, (int) resource.Length);
+            return data;
         }
     }
 }
