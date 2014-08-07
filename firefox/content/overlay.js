@@ -4,11 +4,14 @@ var JSErrorCollector = {
 		push: function (jsError) {
 			this.list[this.list.length] = jsError;
 		},
-		pump: function() {
+		pump: function(noWarnings) {
 			var resp = [];
 			for (var i=0; i<this.list.length; ++i) {
 				var scriptError = this.list[i];
-				resp[i] = {
+				if (noWarnings && (scriptError.flags | 0x1) === 0x1) {
+					continue;
+				}
+				resp[resp.length] = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
@@ -109,9 +112,10 @@ var JSErrorCollector_ErrorConsoleListener =
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-            			console: console
-            		};
-                	JSErrorCollector.addError(err);
+                        flags: scriptError.flags,
+                        console: console
+                        };
+                    JSErrorCollector.addError(err);
                 }
             }
             catch (exception)
