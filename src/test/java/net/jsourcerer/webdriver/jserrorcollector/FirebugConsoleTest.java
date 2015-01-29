@@ -27,7 +27,7 @@ public class FirebugConsoleTest {
 	public static void setup() throws Exception {
 		FirefoxProfile ffProfile = new FirefoxProfile();
 		ffProfile.addExtension(new File("firefox")); // assuming that the test is started in project's root
-		ffProfile.addExtension(FirebugConsoleTest.class, "/firebug-1.11.4-fx.xpi");
+		ffProfile.addExtension(FirebugConsoleTest.class, "/firebug-2.0.7-fx.xpi");
 
 		ffProfile.setPreference("extensions.firebug.showStackTrace", "true");
 		ffProfile.setPreference("extensions.firebug.delayLoad", "false");
@@ -52,7 +52,7 @@ public class FirebugConsoleTest {
 		final String url = getResource("withConsoleOutput.html");
 		webDriver.get(url);
 
-		final JavaScriptError errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", url, 8, "before JS error");
+		final JavaScriptError errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", url, 8, null);
 		
 		final List<JavaScriptError> expectedErrors = Arrays.asList(errorSimpleHtml);
 		List<JavaScriptError> jsErrors = JavaScriptError.readErrors(webDriver);
