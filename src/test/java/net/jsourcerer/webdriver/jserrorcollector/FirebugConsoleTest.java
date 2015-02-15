@@ -52,7 +52,7 @@ public class FirebugConsoleTest {
 		final String url = getResource("withConsoleOutput.html");
 		webDriver.get(url);
 
-		final JavaScriptError errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", url, 8, "before JS error");
+		final JavaScriptError errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", url, 8, "before JS error", url);
 		
 		final List<JavaScriptError> expectedErrors = Arrays.asList(errorSimpleHtml);
 		List<JavaScriptError> jsErrors = JavaScriptError.readErrors(webDriver);

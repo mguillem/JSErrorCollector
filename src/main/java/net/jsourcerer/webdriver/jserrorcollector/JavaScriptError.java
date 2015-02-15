@@ -21,19 +21,22 @@ public class JavaScriptError {
 	private final String sourceName;
 	private final int lineNumber;	
 	private final String console;
+    private final String pageUrl;
 
 	JavaScriptError(final Map<String, ? extends Object> map) {
 		errorMessage = (String) map.get("errorMessage");
 		sourceName = (String) map.get("sourceName");
 		lineNumber = ((Number) map.get("lineNumber")).intValue();
 		console = (String) map.get("console");
+        pageUrl = (String) map.get("pageUrl");
 	}
 
-	JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber, String console) {
+	JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber, String console, final String pageUrl) {
 		this.errorMessage = errorMessage;
 		this.sourceName = sourceName;
 		this.lineNumber = lineNumber;
 		this.console = console;
+        this.pageUrl = pageUrl;
 	}
 
 	public String getErrorMessage() {
@@ -56,6 +59,13 @@ public class JavaScriptError {
 	public String getConsole() {
 		return console;
 	}
+
+    /**
+     * Url of the web page with JavaScript error
+     */
+    public String getPageUrl() {
+        return pageUrl;
+    }
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

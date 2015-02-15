@@ -12,7 +12,8 @@ var JSErrorCollector = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-						console: scriptError.console
+						console: scriptError.console,
+						pageUrl: scriptError.pageUrl
 						};
 			}
 			this.list = [];
@@ -109,7 +110,8 @@ var JSErrorCollector_ErrorConsoleListener =
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-            			console: console
+            			console: console,
+            			pageUrl: window.content.location.href
             		};
                 	JSErrorCollector.addError(err);
                 }

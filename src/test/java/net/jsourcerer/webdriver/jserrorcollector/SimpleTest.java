@@ -15,24 +15,24 @@ import static org.junit.Assert.assertEquals;
 
 
 /**
- * 
+ *
  * @author Marc Guillemot
  * @version $Revision:  $
  */
 public class SimpleTest {
 	private final String urlSimpleHtml = getResource("simple.html");
-	private final JavaScriptError errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", urlSimpleHtml, 9, null);
-	
+	private final JavaScriptError errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", urlSimpleHtml, 9, null, urlSimpleHtml);
+
 	private final String urlWithNestedFrameHtml = getResource("withNestedFrame.html");
-	private final JavaScriptError errorWithNestedFrameHtml = new JavaScriptError("TypeError: \"foo\".notHere is not a function", urlWithNestedFrameHtml, 7, null);
+	private final JavaScriptError errorWithNestedFrameHtml = new JavaScriptError("TypeError: \"foo\".notHere is not a function", urlWithNestedFrameHtml, 7, null, urlWithNestedFrameHtml);
 
 	private final String urlWithPopupHtml = getResource("withPopup.html");
 	private final String urlPopupHtml = getResource("popup.html");
-	private final JavaScriptError errorPopupHtml = new JavaScriptError("ReferenceError: error is not defined", urlPopupHtml, 5, null);
+	private final JavaScriptError errorPopupHtml = new JavaScriptError("ReferenceError: error is not defined", urlPopupHtml, 5, null, urlWithPopupHtml);
 
 	private final String urlWithExternalJs = getResource("withExternalJs.html");
 	private final String urlExternalJs = getResource("external.js");
-	private final JavaScriptError errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1, null);
+	private final JavaScriptError errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1, null, urlWithExternalJs);
 
 	/**
 	 *
@@ -41,14 +41,14 @@ public class SimpleTest {
 	public void simple() throws Exception {
 		final WebDriver driver = buildFFDriver();
 		driver.get(urlSimpleHtml);
-		
+
 		final List<JavaScriptError> expectedErrors = Arrays.asList(errorSimpleHtml);
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
 		assertEquals(expectedErrors, jsErrors);
-		
+
 		driver.quit();
 	}
-	
+
 	/**
 	 *
 	 */
@@ -58,13 +58,13 @@ public class SimpleTest {
 
 		final WebDriver driver = buildFFDriver();
 		driver.get(urlWithNestedFrameHtml);
-		
+
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
 		assertEquals(expectedErrors.toString(), jsErrors.toString());
 
 		driver.quit();
 	}
-	
+
 	/**
 	 *
 	 */
@@ -78,7 +78,7 @@ public class SimpleTest {
 
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
 		assertEquals(expectedErrors.toString(), jsErrors.toString());
-		
+
 		driver.quit();
 	}
 
@@ -94,7 +94,7 @@ public class SimpleTest {
 
 		final List<JavaScriptError> jsErrors = JavaScriptError.readErrors(driver);
 		assertEquals(expectedErrors.toString(), jsErrors.toString());
-		
+
 		driver.quit();
 	}
 
