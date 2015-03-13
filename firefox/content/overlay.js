@@ -6,8 +6,8 @@ var JSErrorCollector = {
 		},
 		pump: function() {
 			var resp = [];
-			for (var i=0; i<this.list.length; ++i) {
-				var scriptError = this.list[i];
+			for (var i=0; i<this.wrappedJSObject.list.length; ++i) {
+				var scriptError = this.wrappedJSObject.list[i];
 				resp[i] = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
@@ -15,7 +15,7 @@ var JSErrorCollector = {
 						console: scriptError.console
 						};
 			}
-			this.list = [];
+			this.wrappedJSObject.list = [];
 			return resp;
 		},
 		toString: function() {
@@ -24,8 +24,7 @@ var JSErrorCollector = {
 				s += i + ": " + this.list[i] + "\n";
 			}
 			return s;
-		},
-		__exposedProps__: { pump: "r" }
+		}
 	},
 	onLoad: function(event) {
 	    // initialization code
@@ -44,10 +43,10 @@ var JSErrorCollector = {
 
 		var onPageLoad = function(aEvent) {
 			var doc = aEvent.originalTarget;  
-		    var win = doc.defaultView;
-		    if (win) {
-				win.wrappedJSObject.JSErrorCollector_errors = JSErrorCollector.collectedErrors;
-		    }
+			var win = doc.defaultView;
+			if (win) {
+				win.wrappedJSObject.JSErrorCollector_errors = Components.utils.cloneInto(JSErrorCollector.collectedErrors,win.wrappedJSObject,{cloneFunctions: true});
+			}
 		};
 
 		windowContent.addEventListener("load", onPageLoad, true);
