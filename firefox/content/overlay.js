@@ -1,13 +1,13 @@
-var JSErrorCollector = {
-	collectedErrors: {
-		list: [],
+var JSErrorCollector = new function() {
+	var list = [];
+	this.collectedErrors = {
 		push: function (jsError) {
-			this.list[this.list.length] = jsError;
+			list.push(jsError);
 		},
 		pump: function() {
 			var resp = [];
-			for (var i=0; i<this.wrappedJSObject.list.length; ++i) {
-				var scriptError = this.wrappedJSObject.list[i];
+			for (var i=0; i<list.length; ++i) {
+				var scriptError = list[i];
 				resp[i] = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
@@ -15,24 +15,25 @@ var JSErrorCollector = {
 						console: scriptError.console
 						};
 			}
-			this.wrappedJSObject.list = [];
+			list = [];
 			return resp;
 		},
 		toString: function() {
 			var s = "";
-			for (var i=0; i<this.list.length; ++i) {
-				s += i + ": " + this.list[i] + "\n";
+			for (var i=0; i<list.length; ++i) {
+				s += i + ": " + list[i] + "\n";
 			}
 			return s;
 		}
-	},
-	onLoad: function(event) {
+	};
+	
+	this.onLoad = function(event) {
 	    // initialization code
 		this.initialize(event);
 	    this.initialized = true;
-	},
+	};
   
-	initialize: function(event) {
+	this.initialize = function(event) {
 		var windowContent = window.getBrowser();
 
 		var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService().QueryInterface(Components.interfaces.nsIConsoleService);
@@ -50,9 +51,9 @@ var JSErrorCollector = {
 		};
 
 		windowContent.addEventListener("load", onPageLoad, true);
-	},
+	};
 
-	addError: function(error) {
+	this.addError = function(error) {
 		this.collectedErrors.push(error);
 		
 		var labelField = document.getElementById("JSErrorCollector-nb");
