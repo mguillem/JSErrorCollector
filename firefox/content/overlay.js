@@ -84,12 +84,13 @@ var JSErrorCollector_ErrorConsoleListener =
                 // We're just looking for content JS errors (see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIScriptError#Categories)
                 if (errorCategory == "content javascript")
                 {
-                	var console = null;
+                	var consoleContent = null;
                 	// try to get content from Firebug's console if it exists
                 	try {
                     	if (window.Firebug && window.Firebug.currentContext) {
                         	var doc = Firebug.currentContext.getPanel("console").document;
-                        	var logNodes = doc.querySelectorAll(".logRow > span");
+//                        	console.log("doc", doc.body.innerHTML, doc)
+                        	var logNodes = doc.querySelectorAll(".logRow .logContent span");
                         	var consoleLines = [];
                         	for (var i=0; i<logNodes.length; ++i) {
                         		var logNode = logNodes[i];
@@ -99,18 +100,19 @@ var JSErrorCollector_ErrorConsoleListener =
                         		}
                         	}
                         	
-                        	console = consoleLines.join("\n");
+                        	consoleContent = consoleLines.join("\n");
                         }
                     } catch (e) {
-                    	console = "Error extracting content of Firebug console: " + e.message;
+                    	consoleContent = "Error extracting content of Firebug console: " + e.message;
                     }
 
                     var err = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-            			console: console
+            			console: consoleContent
             		};
+                	console.log("collecting JS error", err)
                 	JSErrorCollector.addError(err);
                 }
             }
