@@ -121,11 +121,17 @@
   <data name="external" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\external.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="firebug_2_0_8_fx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\firebug-2.0.8-fx.xpi;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="popup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\popup.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="simple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\simple.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="withConsoleOutput" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\withConsoleOutput.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="withExternalJs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\withExternalJs.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

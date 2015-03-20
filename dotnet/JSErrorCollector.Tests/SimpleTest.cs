@@ -34,18 +34,18 @@ namespace JSErrorCollector.Tests
             urlUnbrokenHtml = GetResource("unbroken.html");
 
             urlSimpleHtml = GetResource("simple.html");
-            errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", urlSimpleHtml, 9);
+            errorSimpleHtml = new JavaScriptError("TypeError: null has no properties", urlSimpleHtml, 9, null);
 
             urlWithNestedFrameHtml = GetResource("withNestedFrame.html");
-            errorWithNestedFrameHtml = new JavaScriptError("TypeError: \"foo\".notHere is not a function", urlWithNestedFrameHtml, 7);
+            errorWithNestedFrameHtml = new JavaScriptError("TypeError: \"foo\".notHere is not a function", urlWithNestedFrameHtml, 7, null);
 
             urlWithPopupHtml = GetResource("withPopup.html");
             urlPopupHtml = GetResource("popup.html");
-            errorPopupHtml = new JavaScriptError("ReferenceError: error is not defined", urlPopupHtml, 5);
+            errorPopupHtml = new JavaScriptError("ReferenceError: error is not defined", urlPopupHtml, 5, null);
 
             urlWithExternalJs = GetResource("withExternalJs.html");
             urlExternalJs = GetResource("external.js");
-            errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1);
+            errorExternalJs = new JavaScriptError("TypeError: document.notExisting is undefined", urlExternalJs, 1, null);
         }
 
         [TestMethod]

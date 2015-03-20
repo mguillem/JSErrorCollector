@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FirebugConsoleTest.cs" />
     <Compile Include="TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -77,6 +78,7 @@
     <None Include="Resources\external.js" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\firebug-2.0.8-fx.xpi" />
     <None Include="Resources\popup.html" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\unbroken.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\withConsoleOutput.html" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

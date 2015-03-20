@@ -16,19 +16,23 @@ namespace JSErrorCollector
         private readonly string errorMessage;
         private readonly string sourceName;
         private readonly int lineNumber;
+        private readonly string console;
 
         private JavaScriptError(Dictionary<string, object> map)
         {
             this.errorMessage = map["errorMessage"].ToString();
             this.sourceName = map["sourceName"].ToString();
             this.lineNumber = int.Parse(map["lineNumber"].ToString());
+            if (map.ContainsKey("console") && map["console"] != null)
+                this.console = map["console"].ToString();
         }
 
-        public JavaScriptError(string errorMessage, string sourceName, int lineNumber)
+        public JavaScriptError(string errorMessage, string sourceName, int lineNumber, string console)
         {
             this.errorMessage = errorMessage;
             this.sourceName = sourceName;
             this.lineNumber = lineNumber;
+            this.console = console;
         }
 
         public string ErrorMessage
@@ -55,6 +59,14 @@ namespace JSErrorCollector
             }
         }
 
+        public string Console
+        {
+            get
+            {
+                return this.console;
+            }
+        }
+
         public override int GetHashCode()
         {
             string str = this.ToString();
@@ -71,7 +83,12 @@ namespace JSErrorCollector
 
         public override string ToString()
         {
-            return errorMessage + " [" + sourceName + ":" + lineNumber + "]";
+            string s = errorMessage + " [" + sourceName + ":" + lineNumber + "]";
+            if (console != null)
+            {
+                s += "\nConsole: " + console;
+            }
+            return s;
         }
 
         /// <summary>
