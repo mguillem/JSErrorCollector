@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>JSErrorCollector</id>
     <version>0.6.1.0</version>
-    <authors>joelsand</authors>
+    <title>JSErrorCollector.NET</title>
+    <authors>protectedtrust</authors>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
-    <projectUrl>https://github.com/protectedtrust</projectUrl>
+    <projectUrl>https://github.com/protectedtrust/JSErrorCollector.NET</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This project allows to you capture JavaScript errors while running tests with WebDriver.</description>
     <copyright>Copyright 2014</copyright>
