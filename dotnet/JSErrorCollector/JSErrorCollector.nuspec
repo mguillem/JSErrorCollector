@@ -11,7 +11,7 @@
     <copyright>Copyright 2014</copyright>
     <tags>WebDriver,Selenium,JS,error</tags>
     <dependencies>
-      <dependency id="Selenium.WebDriver" version="2.40.0" />
+      <dependency id="Selenium.WebDriver" version="2.45.0" />
     </dependencies>
   </metadata>
 </package>
