@@ -8,11 +8,17 @@ Ideally this feature should be built-in [WebDriver] but it is not (yet?) the cas
 Other information concerning JavaScript error capturing with WebDriver is available in this [blog post] [3].
 
 
-Features:
+### Features
 
- - provide access to JavaScript errors while running tests with a FirefoxDriver (in .NET)
+* Provide access to JavaScript errors while running tests with Selenium and the FirefoxDriver (in .NET)
 
-Usage in .NET test code:
+### Download and Install
+
+This is [available on NuGet](https://www.nuget.org/packages/JSErrorCollector/).  Use the Package Manager Console in Visual Studio to install it:
+
+	Install-Package JSErrorCollector
+	
+### Usage in .NET Test Code
 
 	FirefoxProfile ffProfile = new FirefoxProfile();
 	JavaScriptError.AddExtension(ffProfile);
@@ -24,11 +30,7 @@ Usage in .NET test code:
 		// Assert that the expected JavaScript errors were returned.
 	}
 
-Download:
-
-Pre-built .xpi and .NET assembly are available in the [dist](dist/) folder.
-
-For other platforms:
+### For Other Platforms
 
 If you're using Java, please see the original [JSErrorCollector project] [JSErrorCollectorOriginal].  Otherwise, 
 the Firefox extension (the [.xpi file](dist/JSErrorCollector.xpi)) can be used from any language having a WebDriver binding.
