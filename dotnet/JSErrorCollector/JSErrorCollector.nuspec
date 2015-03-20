@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
+    <version>0.6.1.0</version>
     <authors>joelsand</authors>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
     <projectUrl>https://github.com/protectedtrust</projectUrl>
