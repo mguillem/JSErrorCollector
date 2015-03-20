@@ -101,7 +101,6 @@ namespace JSErrorCollector
         /// JavaScriptError.AddExtension(profile, "./xpiDirectory");
         /// IWebDriver driver = new FirefoxDriver(profile);
         /// </code></example>
-        [Obsolete("The JSErrorCollector DLL now includes the XPI, so a directory to load from is no longer required")]
         public static void AddExtension(FirefoxProfile ffProfile, string xpiDirectory)
         {
             ffProfile.AddExtension(Path.Combine(xpiDirectory, xpiFilename));

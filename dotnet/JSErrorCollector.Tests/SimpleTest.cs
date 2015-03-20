@@ -51,7 +51,7 @@ namespace JSErrorCollector.Tests
         [TestMethod]
         public void ShouldNotDetectErrorsInWorkingPage()
         {
-            using (IWebDriver driver = BuildFFDriver(xpiDirectory()))
+            using (IWebDriver driver = BuildFFDriver())
             {
                 driver.Navigate().GoToUrl(urlUnbrokenHtml);
 
