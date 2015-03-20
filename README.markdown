@@ -18,7 +18,7 @@ This is [available on NuGet](https://www.nuget.org/packages/JSErrorCollector/). 
 
 	Install-Package JSErrorCollector
 	
-### Usage with Selnium in .NET
+### Usage with Selenium in .NET
 
 	FirefoxProfile ffProfile = new FirefoxProfile();
 	JavaScriptError.AddExtension(ffProfile);
