@@ -1,6 +1,6 @@
-var JSErrorCollector = {
-	collectedErrors: {
-		list: [],
+var JSErrorCollector = new function() {
+	var list = [];
+	this.collectedErrors = {
 		push: function (jsError) {
 			list.push(jsError);
 		},
@@ -111,7 +111,6 @@ var JSErrorCollector_ErrorConsoleListener =
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-            			console: consoleContent
 						console: consoleContent,
             			pageUrl: window.content.location.href
             		};
