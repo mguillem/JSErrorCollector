@@ -12,7 +12,8 @@ var JSErrorCollector = new function() {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-						console: scriptError.console
+						console: scriptError.console,
+						pageUrl: scriptError.pageUrl
 						};
 			}
 			list = [];
@@ -110,7 +111,8 @@ var JSErrorCollector_ErrorConsoleListener =
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-            			console: consoleContent
+						console: consoleContent,
+            			pageUrl: window.content.location.href
             		};
                 	console.log("collecting JS error", err)
                 	JSErrorCollector.addError(err);
