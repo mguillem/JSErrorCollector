@@ -11,7 +11,10 @@ var JSErrorCollector = new function() {
 				resp[i] = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
+						sourceLine: scriptError.sourceLine,
 						lineNumber: scriptError.lineNumber,
+						columnNumber: scriptError.columnNumber,
+						flags: scriptError.flags,
 						console: scriptError.console
 						};
 			}
@@ -109,7 +112,10 @@ var JSErrorCollector_ErrorConsoleListener =
                     var err = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
+						sourceLine: scriptError.sourceLine,
 						lineNumber: scriptError.lineNumber,
+						columnNumber: scriptError.columnNumber,
+						flags: scriptError.flags,
             			console: consoleContent
             		};
                 	console.log("collecting JS error", err)
