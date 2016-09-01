@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>JSErrorCollector</id>
+    <version>0.6.1.0</version>
+    <title>JSErrorCollector.NET</title>
+    <authors>protectedtrust</authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
+    <projectUrl>https://github.com/protectedtrust/JSErrorCollector.NET</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This project allows to you capture JavaScript errors while running tests with WebDriver.</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>WebDriver,Selenium,JS,error</tags>
+    <dependencies>
+      <dependency id="Selenium.WebDriver" version="2.45.0" />
+    </dependencies>
+  </metadata>
+</package>

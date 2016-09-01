@@ -1,1 +1,8 @@
 /target
+/dotnet/**/bin
+/dotnet/**/obj
+/dotnet/*.suo
+/dotnet/TestResults
+/dotnet/packages/*
+!/dotnet/packages/repositories.config
+*.nupkg

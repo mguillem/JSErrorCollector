@@ -4,17 +4,14 @@ var JSErrorCollector = new function() {
 		push: function (jsError) {
 			list.push(jsError);
 		},
+		read: function() {
+			return list.slice();
+		},
+		clear: function() {
+			list = [];
+		},
 		pump: function() {
-			var resp = [];
-			for (var i=0; i<list.length; ++i) {
-				var scriptError = list[i];
-				resp[i] = {
-						errorMessage: scriptError.errorMessage,
-						sourceName: scriptError.sourceName,
-						lineNumber: scriptError.lineNumber,
-						console: scriptError.console
-						};
-			}
+			var resp = list.slice();
 			list = [];
 			return resp;
 		},
@@ -106,11 +103,26 @@ var JSErrorCollector_ErrorConsoleListener =
                     	consoleContent = "Error extracting content of Firebug console: " + e.message;
                     }
 
+                    function getStack() {
+                    	var stack = [];
+                    	var current = scriptError.stack;
+                    	while (current) {
+                    		stack.push(
+                    			(current.functionDisplayName || '(anonymous function)') + ' @ ' +
+                    			current.source + ' : ' +
+                    			current.line + ' : ' +
+                    			current.column);
+                    		current = current.parent;
+                    	}
+                    	return stack.join('\n');
+                    } 
+
                     var err = {
 						errorMessage: scriptError.errorMessage,
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
-            			console: consoleContent
+            			console: consoleContent,
+            			stack: getStack()
             		};
                 	console.log("collecting JS error", err)
                 	JSErrorCollector.addError(err);
