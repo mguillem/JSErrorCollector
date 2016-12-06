@@ -18,43 +18,17 @@ import org.openqa.selenium.firefox.FirefoxProfile;
  */
 public class JavaScriptError {
 	private final String errorMessage;
-	private final String sourceName;
-	private final int lineNumber;	
-	private final String console;
 
 	JavaScriptError(final Map<String, ? extends Object> map) {
 		errorMessage = (String) map.get("errorMessage");
-		sourceName = (String) map.get("sourceName");
-		lineNumber = ((Number) map.get("lineNumber")).intValue();
-		console = (String) map.get("console");
 	}
 
 	JavaScriptError(final String errorMessage, final String sourceName, final int lineNumber, String console) {
 		this.errorMessage = errorMessage;
-		this.sourceName = sourceName;
-		this.lineNumber = lineNumber;
-		this.console = console;
 	}
 
 	public String getErrorMessage() {
 		return errorMessage;
-	}
-	
-	public int getLineNumber() {
-		return lineNumber;
-	}
-	
-	public String getSourceName() {
-		return sourceName;
-	}
-	
-	/**
-	 * If Firebug is installed and active, this will contain the content of the Firebug Console since
-	 * the previous JavaScript error. 
-	 * @return
-	 */
-	public String getConsole() {
-		return console;
 	}
 
 	/* (non-Javadoc)
@@ -64,12 +38,8 @@ public class JavaScriptError {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((console == null) ? 0 : console.hashCode());
 		result = prime * result
 				+ ((errorMessage == null) ? 0 : errorMessage.hashCode());
-		result = prime * result + lineNumber;
-		result = prime * result
-				+ ((sourceName == null) ? 0 : sourceName.hashCode());
 		return result;
 	}
 
@@ -88,13 +58,6 @@ public class JavaScriptError {
 			return false;
 		}
 		JavaScriptError other = (JavaScriptError) obj;
-		if (console == null) {
-			if (other.console != null) {
-				return false;
-			}
-		} else if (!console.equals(other.console)) {
-			return false;
-		}
 		if (errorMessage == null) {
 			if (other.errorMessage != null) {
 				return false;
@@ -102,25 +65,12 @@ public class JavaScriptError {
 		} else if (!errorMessage.equals(other.errorMessage)) {
 			return false;
 		}
-		if (lineNumber != other.lineNumber) {
-			return false;
-		}
-		if (sourceName == null) {
-			if (other.sourceName != null) {
-				return false;
-			}
-		} else if (!sourceName.equals(other.sourceName)) {
-			return false;
-		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		String s = errorMessage + " [" + sourceName + ":" + lineNumber + "]";
-		if (console != null) {
-			s += "\nConsole: " + console;
-		}
+		String s = errorMessage;
 		return s;
 	}
 
@@ -137,7 +87,7 @@ public class JavaScriptError {
 		for (final Object rawError : errors) {
 			response.add(new JavaScriptError((Map<String, ? extends Object>) rawError));
 		}
-		
+
 		return response;
 	}
 

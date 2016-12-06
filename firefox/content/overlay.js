@@ -7,12 +7,9 @@ var JSErrorCollector = new function() {
 		pump: function() {
 			var resp = [];
 			for (var i=0; i<list.length; ++i) {
-				var scriptError = list[i];
+				var script = list[i];
 				resp[i] = {
-						errorMessage: scriptError.errorMessage,
-						sourceName: scriptError.sourceName,
-						lineNumber: scriptError.lineNumber,
-						console: scriptError.console
+						errorMessage: script.message
 						};
 			}
 			list = [];
@@ -26,13 +23,13 @@ var JSErrorCollector = new function() {
 			return s;
 		}
 	};
-	
+
 	this.onLoad = function(event) {
 	    // initialization code
 		this.initialize(event);
 	    this.initialized = true;
 	};
-  
+
 	this.initialize = function(event) {
 		var windowContent = window.getBrowser();
 
@@ -43,7 +40,7 @@ var JSErrorCollector = new function() {
 		}
 
 		var onPageLoad = function(aEvent) {
-			var doc = aEvent.originalTarget;  
+			var doc = aEvent.originalTarget;
 			var win = doc.defaultView;
 			if (win) {
 				win.wrappedJSObject.JSErrorCollector_errors = Components.utils.cloneInto(JSErrorCollector.collectedErrors,win.wrappedJSObject,{cloneFunctions: true});
@@ -55,7 +52,7 @@ var JSErrorCollector = new function() {
 
 	this.addError = function(error) {
 		this.collectedErrors.push(error);
-		
+
 		var labelField = document.getElementById("JSErrorCollector-nb");
 		labelField.nb = labelField.nb || 0;
 		labelField.nb++;
@@ -70,61 +67,15 @@ var JSErrorCollector_ErrorConsoleListener =
     {
         if (document && consoleMessage)
         {
-            // Try to convert the error to a script error
-            try
-            {
-                var scriptError = consoleMessage.QueryInterface(Components.interfaces.nsIScriptError);
-
-                var errorCategory = scriptError.category;
-                var sourceName    = scriptError.sourceName;
-                if (sourceName.indexOf("about:") == 0 || sourceName.indexOf("chrome:") == 0) {
-                	return; // not interested in internal errors
-                }
-
-                // We're just looking for content JS errors (see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIScriptError#Categories)
-                if (errorCategory == "content javascript")
-                {
-                	var consoleContent = null;
-                	// try to get content from Firebug's console if it exists
-                	try {
-                    	if (window.Firebug && window.Firebug.currentContext) {
-                        	var doc = Firebug.currentContext.getPanel("console").document;
-//                        	console.log("doc", doc.body.innerHTML, doc)
-                        	var logNodes = doc.querySelectorAll(".logRow .logContent span");
-                        	var consoleLines = [];
-                        	for (var i=0; i<logNodes.length; ++i) {
-                        		var logNode = logNodes[i];
-                        		if (!logNode.JSErrorCollector_extracted) {
-                            		consoleLines.push(logNodes[i].textContent);
-                            		logNode.JSErrorCollector_extracted = true;
-                        		}
-                        	}
-                        	
-                        	consoleContent = consoleLines.join("\n");
-                        }
-                    } catch (e) {
-                    	consoleContent = "Error extracting content of Firebug console: " + e.message;
-                    }
-
-                    var err = {
-						errorMessage: scriptError.errorMessage,
-						sourceName: scriptError.sourceName,
-						lineNumber: scriptError.lineNumber,
-            			console: consoleContent
-            		};
-                	console.log("collecting JS error", err)
-                	JSErrorCollector.addError(err);
-                }
-            }
-            catch (exception)
-            {
-                // ignore
-            }
+          var err = {
+						message: consoleMessage
+      		};
+        	console.log("collecting JS message", err)
+        	JSErrorCollector.addError(err);
         }
 
         return false;
     }
 };
 
-window.addEventListener("load", function(e) { JSErrorCollector.onLoad(e); }, false); 
-
+window.addEventListener("load", function(e) { JSErrorCollector.onLoad(e); }, false);

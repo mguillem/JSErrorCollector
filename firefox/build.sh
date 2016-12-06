@@ -3,7 +3,6 @@
 #   by Nickolay Ponomarev <asqueella@gmail.com>
 #   (original version based on Nathan Yergler's build script)
 # Most recent version is at <http://kb.mozillazine.org/Bash_build_script>
-
 # This script assumes the following directory structure:
 # ./
 #   chrome.manifest (optional - for newer extensions)
@@ -26,7 +25,6 @@
 #
 # Note: It modifies chrome.manifest when packaging so that it points to 
 #       chrome/$APP_NAME.jar!/*
-
 #
 # default configuration file is ./config_build.sh, unless another file is 
 # specified in command-line. Available config variables:
@@ -37,7 +35,6 @@ ROOT_FILES=        # put these files in root of xpi (space separated list of lea
 ROOT_DIRS=         # ...and these directories       (space separated list)
 BEFORE_BUILD=      # run this before building       (bash command)
 AFTER_BUILD=       # ...and this after the build    (bash command)
-
 if [ -z $1 ]; then
   . ./config_build.sh
 else
